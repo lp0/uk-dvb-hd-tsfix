@@ -108,6 +108,8 @@ int main(int argc, char *argv[]) {
 
 		if (data[i+3] & 0x20) /* skip adaptation field */
 			pos += data[i+4];
+		if (pos >= TS_LEN) /* overflow */
+			continue;
 
 		pos += data[i+pos+0] + 1; /* skip PSI offset */
 		if (pos+11 >= TS_LEN) /* overflow */
