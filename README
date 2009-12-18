@@ -1,1 +1,1 @@
-Fixes UK DVB transport streams by changing the first PID in every PMT from UNKNOWN to H264
+Fixes UK DVB transport streams by changing the type of the first PID in every PMT from UNKNOWN to H264
