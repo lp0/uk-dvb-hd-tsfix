@@ -145,7 +145,7 @@ int main(int argc, char *argv[]) {
 				break;
 
 #ifdef DEBUG
-			printf("%u: pid %u prog %u type %u\n", i, pid, ((data[i+pos+1] & 0x1f) << 8) | data[i+pos+2], data[i+pos+0]);
+			printf("%lu: pid %u prog %u type %u\n", (unsigned long)i, pid, ((data[i+pos+1] & 0x1f) << 8) | data[i+pos+2], data[i+pos+0]);
 #endif
 
 			/* modify first elementary PID */
@@ -166,7 +166,7 @@ int main(int argc, char *argv[]) {
 			uint32_t pkt_crc = (data[i+pos+0] << 24) | (data[i+pos+1] << 16) | (data[i+pos+2] << 8) | data[i+pos+3];
 			uint32_t calc_crc = demux_ts_compute_crc32(&data[i+dpos], (i+pos) - (i+dpos));
 #ifdef DEBUG
-			printf("%u: pid %u pmt crc (packet %08x) (calc %08x)\n", i, pid, pkt_crc, calc_crc);
+			printf("%lu: pid %u pmt crc (packet %08x) (calc %08x)\n", (unsigned long)i, pid, pkt_crc, calc_crc);
 #endif
 			/* mplayer doesn't check the crc :( */
 			data[i+modify] = 0x1b; /* set to H264 */
@@ -175,7 +175,7 @@ int main(int argc, char *argv[]) {
 			if (pkt_crc == calc_crc) {
 				calc_crc = demux_ts_compute_crc32(&data[i+dpos], (i+pos) - (i+dpos));
 #ifdef DEBUG
-				printf("%u: pid %u pmt crc (before %08x) (after %08x)\n", i, pid, pkt_crc, calc_crc);
+				printf("%lu: pid %u pmt crc (before %08x) (after %08x)\n", (unsigned long)i, pid, pkt_crc, calc_crc);
 #endif
 				data[i+pos+0] = (calc_crc >> 24) & 0xff;
 				data[i+pos+1] = (calc_crc >> 16) & 0xff;
