@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
 
 	demux_ts_build_crc32_table();
 
-	fd = open(argv[1], O_EXCL | O_RDWR);
+	fd = open(argv[1], O_RDWR);
 	if (fd < 0) {
 		perror(argv[1]);
 		exit(EXIT_FAILURE);
