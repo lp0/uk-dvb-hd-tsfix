@@ -82,6 +82,12 @@ int main(int argc, char *argv[]) {
 		exit(EXIT_FAILURE);
 	}
 
+	ret = madvise(data, f_stat.st_size - (f_stat.st_size % TS_LEN), MADV_SEQUENTIAL);
+	if (ret != 0) {
+		perror("madvise");
+		exit(EXIT_FAILURE);
+	}
+
 	for (i = 0; i < f_stat.st_size - (f_stat.st_size % TS_LEN); i += TS_LEN) {
 		unsigned int pos = 4;
 		unsigned int dpos, progs;
